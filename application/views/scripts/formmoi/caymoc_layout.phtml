@@ -1,0 +1,44 @@
+<?php 
+    echo $this->headMeta();
+    echo $this->headLink();
+    echo $this->headScript();   
+?>
+
+
+<div style="padding: 8px;" class ="largeLogin">
+    <table >
+        <tbody>
+        
+            <tr >
+                <td class="largerLabel" >Chọn Kho</td>
+                <td class="formEdit"><p class = "FormHightlight"><?=$this->element->getElement('makho')->getValue(); ?></p></td>   
+            </tr>
+            <tr >
+                <td class="largerLabel" >Nguyên liệu</td>
+                <td class="formEdit"><p class = "FormHightlight"><?=$this->element->getElement('masoi')->getValue(); ?></p></td>
+                <td width ="100px" style="padding-left:10px;" >Số Tấn</td>
+                <td  width ="100px"><?=$this->element->getElement('sotansoi'); ?></td>   
+            </tr>
+            <tr >
+                <td class="largerLabel">Loại Vải</td>
+                <td class="formEdit" ><?=$this->element->getElement('mavai'); ?></td>
+            </tr>
+            <tr >
+                <td class="largerLabel" >Số Cây Mộc</td>
+                <td class="formEdit"><?=$this->element->getElement('socaymoc'); ?></td>   
+            </tr>
+            <tr >
+                <td class="largerLabel" >Tổng Số Mét</td>
+                <td class="formEdit"><?=$this->element->getElement('tongsometvai'); ?></td>   
+            </tr>
+            <tr >
+                <td class="largerLabel" >Chọn Kho Mộc</td>
+                <td class="formEdit"><?=$this->element->getElement('khomoc'); ?></td>   
+            </tr>
+            <tr >
+                <td class="largerLabel" ></td>
+                <td class="formEdit"><?=$this->element->getElement('them'); ?></td>   
+            </tr>
+        </tbody>
+    </table>
+</div>

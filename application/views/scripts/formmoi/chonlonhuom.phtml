@@ -1,0 +1,35 @@
+<?php 
+    echo $this->headMeta();
+    echo $this->headLink();
+    echo $this->headScript();   
+
+    $data= new My_Data();
+    $ln= new Model_Lonhuom();
+    $lonhuomall = $ln->getWhere_trangthai();
+    $opLonhuom = array();
+    
+    if($lonhuomall)
+    {
+        echo '<h1 class="title" style="float:left">Chọn Lô Nhuộm</h1>';
+        foreach ($lonhuomall as $key=>$item)
+        {
+            $mydate = Zend_Locale_Format::getDate($item['NgayNhuom'],array("date_format"=>"yyyy.MM.dd"));
+            $date_str =  $mydate['day']."/".$mydate['month']."/".$mydate['year'] ;
+            
+            $sub =array('MaLo'=>$item['MaLoNhuom'],'Date'=>$date_str,'Mau'=>$data->getNameMau($item['MaMau']),
+                'SoCay'=>$item['SoCayNhuom'],'LuaChon'=>$this->element->getElement(''.$item['MaLoNhuom']));
+            $opLonhuom[]=$sub;
+        }
+        
+        $title = array("Mã Lô","Ngày Nhuộm","Màu","Số Cây","Chọn");
+        $query = $data->createTable($title, $opLonhuom, "500px");
+        echo $query;
+    }
+    else 
+    {
+        echo "<div class='message'>";
+        echo "Chưa tồn tại Lô Nhuộm";
+        echo "</div>";
+    }
+    ?>
+        

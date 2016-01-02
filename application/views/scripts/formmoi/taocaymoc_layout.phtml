@@ -1,0 +1,38 @@
+<?php 
+    echo $this->headMeta();
+    echo $this->headLink();
+    echo $this->headScript();   
+    
+    $soluong = $this->element->getElement('soluong')->getValue();
+    
+?>
+
+<div class = "caymocbody">
+<div >
+    <?php 
+    for($i=1; $i<=$soluong; $i++)
+    {
+        ?>
+        <div  class ='caymocitem'>
+            <span style="padding-right:10px;">Cây <?php if($i<10)echo $i."&nbsp&nbsp&nbsp&nbsp"; elseif ($i<100) echo $i."&nbsp&nbsp";else echo $i;?></span>
+            <span class='caymocfield'><?php echo $this->element->getElement(''.$i)?></span>
+        </div>
+    <?php 
+    }
+    ?>
+   <span style='clear: both; padding-top:25px;'></span>
+   <br>
+   <span ><?php echo $this->element->getElement('soluong');?></span>
+   <span ><?php echo $this->element->getElement('mavai');?></span>
+   <span ><?php echo $this->element->getElement('sotan');?></span>
+   <span ><?php echo $this->element->getElement('tongsomet');?></span>
+   <span ><?php echo $this->element->getElement('khomoc');?></span>
+
+   <p style='color:#0CC;'>fasd</p> <br>
+   <span style='margin: 100px 0px 100px 500px;' ><?php echo $this->element->getElement('them');?></span>
+   <p style='color:#0CC;'>fasd</p>  
+</div>
+</div>
+
+
+

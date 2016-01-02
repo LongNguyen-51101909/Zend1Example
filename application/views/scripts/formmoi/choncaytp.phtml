@@ -1,0 +1,71 @@
+<?php 
+    echo $this->headMeta();
+    echo $this->headLink();
+    echo $this->headScript();   
+
+    Zend_Session::start();
+    $mysession = new Zend_Session_Namespace('XuLyDonHang');
+    
+    $madonhang = $this->element->getElement('mydonhang')->getValue();
+    $makhotp = $this->element->getElement('mykhohang')->getValue();
+
+    $donhang = new Model_Donhang();
+    $donhangrow = $donhang->getWhere($madonhang);
+    
+    $caymoc = new Model_Caymoc();
+    $caytp = new Model_Caythanhpham();
+    $lonhuom = new Model_Lonhuom();
+    $data= new My_Data();
+    
+    $caytpall = $caytp->getWhere_khohang($makhotp);
+    $optp = array();
+    
+    if($caytpall)
+    {
+        foreach ($caytpall as $key => $item)
+        {
+            $caymocrow = $caymoc->getWhere_ctp($item['MaCTP']);
+            $lonhuomrow = $lonhuom->getWhere($caymocrow['MaLoNhuom']);
+        
+            if($caymocrow['MaVai'] == $donhangrow['MaVai'] &&
+                $lonhuomrow['MaMau'] == $donhangrow['MaMau'])
+            {
+                $optp[] = $item['MaCTP'];
+            }
+        }
+    }
+    
+    if($optp)
+    {
+        echo '<h1 class="title">Chọn Cây Thành Phẩm</h1>';
+        $content = array();
+        foreach ($optp as $item)
+        if(!in_array($item, $mysession->checktp))
+        {
+            $caytprow = $caytp->getWhere($item);
+            $caymocrow = $caymoc->getWhere_ctp($item);
+            $lonhuomrow = $lonhuom->getWhere($caymocrow['MaLoNhuom']);
+            
+            $sub =array($caytprow['MaCTP'],$data->getNameVai($caymocrow['MaVai']),$data->getNameMau($lonhuomrow['MaMau']),
+                        $caytprow['SoMetVai'],$this->element->getElement($item.'') );
+            $content[]=$sub;
+        }
+        if($content != null)
+        {
+            $content[] = array(null,null,$this->element->getElement('chon'),null);
+            $title = array("Mã Cây TP","Loại Vải","Màu Vải","Số Mét","Chọn");
+            $query = $data->createTable($title, $content, "500px");
+            echo $query;
+        }
+    }
+    else
+    {
+        echo "<div class='long_message' style='margin-left:0px !important;'>";
+        echo "Kho không tồn tại cây thành phẩm phù hợp";
+        echo "</div>";
+    }
+   
+    ?>
+   <span ><?php echo $this->element->getElement('mydonhang');?></span>
+   <span ><?php echo $this->element->getElement('mykhohang');?></span>    
+        

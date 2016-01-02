@@ -1,0 +1,47 @@
+<?php 
+    echo $this->headMeta();
+    echo $this->headLink();
+    echo $this->headScript();   
+
+    Zend_Session::start();
+    $mysession = new Zend_Session_Namespace('Zend_Auth');
+    
+    $data= new My_Data();
+    $caymoc = new Model_Caymoc();
+    $loaivai = new Model_Loaivai();
+    $khohang = new Model_Khohang();
+    $makho = $this->element->getElement('mykhohang')->getValue();
+    $lonhuom = $this->element->getElement('chonlonhuom');
+    $bochon = $this->element->getElement('bochon');
+
+    ?>
+        <table style='margin-bottom: 7px;'>
+                <tr>
+                <td><h1 class="title" style='float:left'>Cây Mộc Đã Chọn</h1></td>
+<!--                 <td><div class="buttontim"><a href='#'>Chọn Lô Nhuộm</a></div></td> -->
+                <td><span style='padding: 30px 0px 0px 35px;'><?php if($makho!=null) echo $lonhuom;?></span></td>
+                <td><span style='padding: 0px 0px 0px 50px;'><?php //echo $bochon;?></span></td>
+                </tr>
+        </table>
+    <?php 
+
+    $opChecked = array();
+    $dem = 1;
+    foreach ($mysession->checked as $key => $item)
+    {
+        $button1 = ($this->element->getElement(''.$item));
+        $caymocrow= $caymoc->getWhere($item);
+        $loaivairow = $loaivai->getWhere($caymocrow['MaVai']);
+        $khohangrow = $khohang->getWhere($caymocrow['MaKhoMoc']);
+        $tenvai = $loaivairow['TenLoaiVai'];
+        $sub =array('STT'=>$dem,'MaMoc'=>$caymocrow['MaMoc'],'TenVai'=>$tenvai,
+            'SoMetVai'=>$caymocrow['SoMetVai'],$khohangrow['TenKho'],'BoChon'=>$button1);
+        $opChecked[]=$sub;
+        $dem++;
+    }
+    $title = array("STT","Mã Mộc","Loại Vải","Số Mét","Kho Mộc",$bochon);
+    $query = $data->createTable($title, $opChecked, "500px");
+    echo $query;
+    ?>
+     <span ><?php echo $this->element->getElement('mykhohang');?></span>
+    

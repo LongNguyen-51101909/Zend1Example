@@ -1,0 +1,211 @@
+<?php
+
+require_once '/../header.phtml';
+require_once '/../menudoc.phtml';
+require_once 'data.php';
+
+// <meta charset="UTF-8"/>
+// include auto-loader class
+// require_once 'Zend/Loader/Autoloader.php';
+
+// // register auto-loader
+// $loader = Zend_Loader_Autoloader::getInstance();
+
+// echo "Export--> Phai xoa file cu di thi moi chay tiep dc --> có ham update la: pdf->save(path, true)";
+// // Create a new PDF document
+// $str = "Mary had a little lamb. It's fleece was white as snow.
+//     And everywhere that Mary went, the lamb was sure to go";
+// try {
+// $pdf = new Zend_Pdf();
+
+
+// $page1 = $pdf->newPage(Zend_Pdf_Page::SIZE_A4);
+// $page2 = $pdf->newPage(Zend_Pdf_Page::SIZE_A4);
+// $page3 = $pdf->newPage(Zend_Pdf_Page::SIZE_A4);
+// // // Page created, but not included into pages list
+// // Page
+// $width  = $page1->getWidth();
+// $height = $page1->getHeight();
+
+// // Create new Style
+//     $style = new Zend_Pdf_Style();
+// $style->setFillColor(new Zend_Pdf_Color_Rgb(0, 0, 0.9));
+// $style->setLineColor(new Zend_Pdf_Color_GrayScale(0.2));
+// $style->setLineWidth(3);
+// $style->setLineDashingPattern(array(3, 2, 3, 4), 1.6);
+// $fontH = Zend_Pdf_Font::fontWithName(Zend_Pdf_Font::FONT_TIMES_ROMAN);
+// $style->setFont($fontH, 20);
+// foreach ($pdf->pages as $page){
+// //     $page->saveGS()
+// //     ->setAlpha(0.25)
+// //     ->setStyle($style)
+// //     ->rotate(0, 0, M_PI_2/3);
+
+// //     $page->saveGS();
+// //     $page->clipCircle(550, -10, 50);
+// //     if ($stampImage != null) {
+// //         $page->drawImage($stampImage, 500, -60, 600, 40);
+// //     }
+// //     $page->restoreGS();
+
+// //     $page->drawText('Modified by Zend Framework!', 150, 0);
+// //     ->restoreGS();
+// }
+// $page1->setStyle($style)
+// ->drawText('ĐẠI HỌC BACH KHOA HCM1', 100,100, $charEncoding = 'UTF-8');
+// // $page1->drawText('example text here',100,100);
+// // $page1->drawText('Dai hoc bach khoa', 100, 100);
+// // $pdf->pages[] = $page2;
+ 
+// // $page=$pdf->pages[]; // this will get reference to the first page.
+
+// // $style = new Zend_Pdf_Style();
+// // $style->setLineColor(new Zend_Pdf_Color_Rgb(0,0,0));
+
+// // $font = Zend_Pdf_Font::fontWithName(Zend_Pdf_Font::FONT_TIMES);
+
+// // $style->setFont($font,12);
+
+// // $page1->setStyle($style);
+
+// // $page1->drawText('example text here',100,($page1->getHeight()-100));
+
+
+// // $destination1 = Zend_Pdf_Destination_Fit::create($page2);
+// // $destination2 = Zend_Pdf_Destination_Fit::create($page3);
+ 
+// // // Returns $page2 object
+// // $page = $pdf->resolveDestination($destination1);
+ 
+// // // Returns null, page 3 is not included into document yet
+// // $page = $pdf->resolveDestination($destination2);
+ 
+// // $pdf->setNamedDestination('Page2', $destination1);
+// // $pdf->setNamedDestination('Page3', $destination2);
+ 
+// // // Returns $destination2
+// // $destination = $pdf->getNamedDestination('Page3');
+ 
+// // // Returns $destination1
+// // $pdf->resolveDestination(Zend_Pdf_Destination_Named::create('Page2'));
+ 
+// // // Returns null, page 3 is not included into document yet
+// // $pdf->resolveDestination(Zend_Pdf_Destination_Named::create('Page3'));
+
+// // // them noi dung cho page
+
+
+// // $action1 = Zend_Pdf_Action_GoTo::create(
+// //     Zend_Pdf_Destination_Fit::create($page2));
+// // $action2 = Zend_Pdf_Action_GoTo::create(
+// //     Zend_Pdf_Destination_Fit::create($page3));
+// // $action3 = Zend_Pdf_Action_GoTo::create(
+// //     Zend_Pdf_Destination_Named::create('Chapter1'));
+// // $action4 = Zend_Pdf_Action_GoTo::create(
+// //     Zend_Pdf_Destination_Named::create('Chapter5'));
+
+// // $action2->next[] = $action3;
+// // $action2->next[] = $action4;
+
+// // $action1->next[] = $action2;
+
+// // $actionsCount = 1; // Note! Iteration doesn't include top level action and
+// // // walks through children only
+// // $iterator = new RecursiveIteratorIterator(
+// //     $action1,
+// //     RecursiveIteratorIterator::SELF_FIRST);
+// // foreach ($iterator as $chainedAction) {
+// //     $actionsCount++;
+// // }
+
+// // // Prints 'Actions in a tree: 4'
+// // printf("Actions in a tree: %d\n", $actionsCount++);
+
+
+
+
+// $page2->setStyle($style)
+// ->drawText('That which we call a rose,', 72, 720)
+// ->drawText('By any other name would smell as sweet.', 72, 700);
+// // $page2->drawTextBlock($str, 10, 600, 500, 500, Zend_Pdf_Page::ALIGN_LEFT);
+// // $page2->drawTextBlock($str, 10, 600, 500, 500, Zend_Pdf_Page::ALIGN_CENTER);
+// // $page1->dra
+// // draw another line near the bottom of the page
+// $page2->drawLine(10, 25, ($page2->getWidth()-10), 25);
+// $page1->drawLine(10, 25, ($page1->getWidth()-10), 25);
+// // define image resource
+// $image = Zend_Pdf_Image::imageWithPath('./public/image/logo.jpg');
+// // write image to page
+// $page1->drawImage($image, 500, 800, ($image->getPixelWidth()+25), (800+$image->getPixelHeight()));
+// // add footer text
+// // $page2->drawText('Copyright My Company 2010. All rights reserved.', ($page2->getWidth()/4), 10);
+// $page2->drawText('Copyright My Company 2010. All rights reserved.', 40, 10);
+
+
+
+
+
+
+// // set up database access parameters
+// $params = array ('host'     => '127.0.0.1',
+//     'username' => 'root',
+//     'password' => '',
+//     'dbname'   => 'det');
+
+// // configure adapter and query database
+// $db = Zend_Db::factory('PDO_MYSQL', $params);
+// $stmt = $db->query('SELECT TenKhachHang, DiaChi, SoDienThoai FROM khachhang LIMIT 0, 150');
+
+// // create page
+// // $page = $pdf->createPage();
+
+// // define font resource
+// $font = Zend_Pdf_Font::fontWithName(Zend_Pdf_Font::FONT_HELVETICA);
+
+// // set font
+// $page3->setFont($font, 24);
+
+// // create table
+// // $table = new Zend_pdf_t_Pdf_Table(3);
+
+// // // iterate over record set
+// // // set up table content
+// // while ($record = $stmt->fetch()) {
+// //     $row = new My_Pdf_Table_Row();
+// //     $cols = array();
+// //     foreach ($record as $k => $v) {
+// //         $col = new My_Pdf_Table_Column();
+// //         $col->setText($v);
+// //         $cols[] = $col;
+// //     }
+// //     $row->setColumns($cols);
+// //     $row->setFont($font, 14);
+// //     $row->setBorder(My_Pdf::TOP, new Zend_Pdf_Style());
+// //     $row->setBorder(My_Pdf::BOTTOM, new Zend_Pdf_Style());
+// //     $row->setBorder(My_Pdf::LEFT, new Zend_Pdf_Style());
+// //     $row->setCellPaddings(array(10,10,10,10));
+// //     $table->addRow($row);
+// // }
+
+// // // add table to page
+// // $page3->addTable($table, 0, 0);
+
+// // // add page to document
+// // $pdf->addPage($page3);
+
+
+
+// $pdf->pages[] = $page1;
+// $pdf->pages[] = $page2;
+// // $pdf->properties['Title'] = 'New Title.';
+// $donxuat = "donxuat";
+// $pdf->save($donxuat . '.pdf');
+// // $pdf->save('./file.pdf', true);
+// echo 'SUCCESS: Document saved!';
+// } catch (Zend_Pdf_Exception $e) {
+//     die ('PDF error: ' . $e->getMessage());
+// } catch (Exception $e) {
+//     die ('Application error: ' . $e->getMessage());
+// }
+
+// $pdfString = $pdf->render();

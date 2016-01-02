@@ -1,0 +1,56 @@
+<?php 
+    echo $this->headMeta();
+    echo $this->headLink();
+    echo $this->headScript();   
+    
+    Zend_Session::start();
+    $mysession = new Zend_Session_Namespace('Zend_Auth');
+    
+    $makho = $this->element->getElement('mykhohang')->getValue();
+    
+    $khomoc = new Model_Caymoc();
+    $khomocrow = $khomoc->getWhere_khomoc_CTP($makho);
+
+    if($khomocrow)
+    {
+        $loaivai = new Model_Loaivai();
+        $opkhomoc = array();
+        if($mysession->checked !=null)
+        {
+            foreach($khomocrow as $item)
+            {
+                //chi chon nhung item khong co trong session
+                if(!in_array(($item['MaMoc'].'') , $mysession->checked ))
+                {
+                    $loaivairow = $loaivai->getWhere($item['MaVai']);
+                    $tenvai = $loaivairow['TenLoaiVai'];
+                    $checkbox =  $this->element->getElement(($item['MaMoc'].''));
+                    $sub =array('MaMoc'=>$item['MaMoc'],'TenVai'=>$tenvai,
+                        'SoMetVai'=>$item['SoMetVai'],'checkbox'=>$checkbox);
+                    $opkhomoc[]=$sub;
+                }
+            }
+        }
+        else 
+        {
+            foreach($khomocrow as $item)
+            {
+                $loaivairow = $loaivai->getWhere($item['MaVai']);
+                $tenvai = $loaivairow['TenLoaiVai'];
+                $checkbox =  $this->element->getElement(($item['MaMoc'].''));
+                $sub =array('MaMoc'=>$item['MaMoc'],'TenVai'=>$tenvai,
+                    'SoMetVai'=>$item['SoMetVai'],'checkbox'=>$checkbox);
+                $opkhomoc[]=$sub;
+            }
+        }
+        $sub = array('MaMoc'=>'','TenVai'=>$this->element->getElement('them'),
+                'SoMetVai'=>'','checkbox'=>'');
+        $opkhomoc[]=$sub;
+     
+        $data = new My_Data();
+        $title = array("Mã Mộc","Loại Vải","Số Mét Vải", "Chọn");
+        $query = $data->createTable($title, $opkhomoc, "400px");
+        echo $query;
+    }
+?>
+ <span ><?php echo $this->element->getElement('mykhohang');?></span>

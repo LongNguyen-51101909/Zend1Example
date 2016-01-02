@@ -1,0 +1,44 @@
+<?php 
+    echo $this->headMeta();
+    echo $this->headLink();
+    echo $this->headScript();   
+    
+    Zend_Session::start();
+    $mysession = new Zend_Session_Namespace('Zend_Auth');
+    $data = new My_Data();
+    
+    $caymoc = new Model_Caymoc();
+    $opTp = array();
+    $malo = $this->element->getElement('malonhuom')->getValue();
+    if($mysession->checked)
+    {
+        $dem =1;
+        foreach ($mysession->checked as $key=>$item)
+        {
+            $caymocrow = $caymoc->getWhere($item);
+            $metmoc = "<span style='margin-left:25px !important;'>".$caymocrow['SoMetVai']."</span>";
+            $sub =array($dem,'MaMoc'=>$item,'MetMoc'=>$metmoc,'MaLo'=>$malo,'MetTP'=>($this->element->getElement($item.'')));
+            $opTp[]=$sub;
+            $dem++;
+        }
+        
+        $label = "</td><td colspan='3' style='margin-left:-48px !important;background-color:#51A5BA;'>Chọn Kho Thành Phẩm</td>";
+        $matp= "<span style=''>".$this->element->getElement('khotp')."</span>";
+        $sub = array($label,'MetTP'=>$matp);
+        $opTp[]=$sub;
+        
+        
+        
+        $button = "<span style='margin-left:25px !important;'>".$this->element->getElement('them')."</span>";
+        $sub = array(null,'MaMoc'=>null,'MetMoc'=>$button,'MaLo'=>null,'MetTP'=>null);
+        $opTp[]=$sub;
+        
+        echo '<h1 class="title">Tạo Cây Thành Phẩm</h1>';
+        $title = array("STT","Mã Mộc","Số Mét Mộc","Mã Lô","Số Mét Thành Phẩm");
+        $query = $data->createTable($title, $opTp, "550px","#51A5BA",false);
+        echo $query;
+    }
+    ?>
+    <span ><?php echo $this->element->getElement('malonhuom');?></span>
+    
+    
